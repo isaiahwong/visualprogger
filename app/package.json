@@ -1,0 +1,40 @@
+{
+  "name": "visualprogger",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "babel-node ./src/index.js",
+    "dev": "nodemon --watch src --exec babel-node ./src/index.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.18.2",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.0",
+    "express-handlebars": "^3.0.0",
+    "hbs": "~4.0.1",
+    "helmet": "^3.15.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.3.14",
+    "morgan": "^1.9.0",
+    "serve-favicon": "^2.4.5",
+    "socket.io": "^2.2.0",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.18.9"
+  }
+}

@@ -1,0 +1,99 @@
+<html>
+<head>
+    <title>Socket.IO chat</title>
+    <style>
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        body {
+            font: 13px Helvetica, Arial;
+        }
+        button {
+            width: 45%;
+            height: 5%;
+            background: rgb(130, 224, 255);
+            border: none;
+            padding: 10px;
+            color: black
+        }
+        ul {
+            height:89%;
+            overflow: scroll;
+        }
+        #messages {
+            list-style-type: none; margin: 0; padding: 0;
+        }
+        #messages li {
+            padding: 5px 10px;
+        }
+        #messages li:nth-child(odd) {
+            background: #1e1e1e;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+<ul id="messages">
+
+</ul>
+    <button id="startbtn">Start</button>
+    <button id="stopbtn">Stop</button>
+    <button id="scansbtn">Scans</button>
+    <script>
+        let socket = io();
+
+        $(function () {
+            //OUTGOING FOR SOCKETIO
+            let start = $('#startbtn');
+            let stop = $('#stopbtn');
+            let msgs = $('#messages');
+            let scans = $('#scansbtn');
+
+            start.click(function() {
+                socket.emit('stream', '');
+            });
+
+            stop.click(function() {
+                socket.emit('stop');
+                setTimeout(function() {
+                    msgs.append($('<li>').text(msg));
+                }, 500);
+            });
+
+            scans.click(function() {
+               socket.emit('scans');
+            });
+
+
+            // INCOMING FOR SOCKETIO
+
+            function startStream(id) {
+                console.log("starting stream");
+                socket.emit('stream', id);
+            }
+
+            socket.on('scans', function(msg) {
+                msgs.append($('<li>').text(msg));
+                msgs.stop().animate({
+                    scrollTop: msgs[0].scrollHeight
+                }, 800);
+
+                let scanId = JSON.parse(msg)[0];
+                startStream(scanId);
+            });
+
+            socket.on('stream', function(msg) {
+                msgs.append($('<li>').text(msg));
+                msgs.stop().animate({
+                    scrollTop: msgs[0].scrollHeight
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>
+

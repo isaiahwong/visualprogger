@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+        - 27017:27017
+
+  mongo-seed:
+    build: 
+      context: ./seed
+    depends_on:
+      - mongo
+    links: 
+      - mongo
+  
+  app:
+    build:
+      context: ./app
+    env_file: ./app/.env
+    volumes:
+      - /app/node_modules
+      - ./app:/app
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo
+    links: 
+      - mongo
+
+
+      
